@@ -4,5 +4,6 @@ def swap(a, b):
     a = a / b
     return a, b
 
-print(swap(5, 10))
+if __name__ == "__main__":
+    print(swap(5, 10))
 

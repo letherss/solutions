@@ -9,8 +9,9 @@ def days_in_month(month, year):
     else:
         return 31
 
-print(days_in_month(1, 2001))
-print(days_in_month(2, 2001))
-print(days_in_month(2, 2000))
-print(days_in_month(2, 1900))
-print(days_in_month(11, 2025))
+if __name__ == "__main__":
+    print(days_in_month(1, 2001))
+    print(days_in_month(2, 2001))
+    print(days_in_month(2, 2000))
+    print(days_in_month(2, 1900))
+    print(days_in_month(11, 2025))

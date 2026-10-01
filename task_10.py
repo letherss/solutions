@@ -12,7 +12,8 @@ def index_of_min(values):
 
     return min_index
 
-print(index_of_min([10, -3, -5, 2, 5]))
-print(index_of_min([1, 2, 3]))
-print(index_of_min([4, 1, 1, 9]))
-print(index_of_min([]))
+if __name__ == "__main__":
+    print(index_of_min([10, -3, -5, 2, 5]))
+    print(index_of_min([1, 2, 3]))
+    print(index_of_min([4, 1, 1, 9]))
+    print(index_of_min([]))

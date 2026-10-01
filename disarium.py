@@ -4,6 +4,7 @@ def is_disarium(n):
         total += int(digit) ** i
     return total == n
 
-print(is_disarium(89))
-print(is_disarium(135))
-print(is_disarium(564))
+if __name__ == "__main__":
+    print(is_disarium(89))
+    print(is_disarium(135))
+    print(is_disarium(564))

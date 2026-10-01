@@ -1,6 +1,7 @@
 def greet(username):
-    print("Hello,", username)
+    return "Hello, " + username
 
-username = input("Введите имя: ")
-greet(username)
+if __name__ == "__main__":
+    username = input("Введите имя: ")
+    print(greet(username))
 

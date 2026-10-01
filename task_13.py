@@ -4,4 +4,5 @@ def multiplication_table(n):
         result.append(f"{n} x {i} = {n * i}")
     return result
 
-print(multiplication_table(7))
+if __name__ == "__main__":
+    print(multiplication_table(7))

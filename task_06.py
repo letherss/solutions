@@ -1,5 +1,6 @@
 def echo_number(number):
-    print("Thats the number you entered", number)
+    return "Thats the number you entered " + number
 
-number = input("Enter number: ")
-echo_number(number)
+if __name__ == "__main__":
+    number = input("Enter number: ")
+    print(echo_number(number))
