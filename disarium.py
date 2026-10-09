@@ -5,6 +5,6 @@ def is_disarium(n):
     return total == n
 
 if __name__ == "__main__":
-    print(is_disarium(89))
-    print(is_disarium(135))
-    print(is_disarium(564))
+    (is_disarium(89))
+    (is_disarium(135))
+    (is_disarium(564))

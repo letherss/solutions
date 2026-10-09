@@ -1,14 +1,16 @@
 def month_calendar(start_weekday, days):
-    result = []
-    for i in range(start_weekday):
-        result.append("  ")
+    a = []
+    b = []
+    for _ in range(start_weekday):
+        b.append("  ")
     for day in range(1, days + 1):
-        result.append(f"{day:2}")
-    lines = []
-    for i in range(0, len(result), 7):
-        line = " ".join(result[i:i + 7]).rstrip()
-        lines.append(line)
-    return "\n".join(lines)
+        b.append(f"{day:2}")
+        if len(b) == 7:
+            a.append(" ".join(b))
+            b = []
+    if b:
+        a.append(" ".join(b))
+    return "\n".join(a)
 
 if __name__ == "__main__":
-    print(month_calendar(6, 31))
+    (month_calendar(6, 31))

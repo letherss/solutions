@@ -1,8 +1,8 @@
 def multiplication_table(n):
-    result = []
+    otv = []
     for i in range(1, 11):
-        result.append(f"{n} x {i} = {n * i}")
-    return result
+        otv.append(f"{n} x {i} = {n * i}")
+    return otv
 
 if __name__ == "__main__":
-    print(multiplication_table(7))
+    multiplication_table(7)

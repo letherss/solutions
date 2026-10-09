@@ -5,9 +5,9 @@ def square_digits(n):
     return int(result)
 
 if __name__ == "__main__":
-    print(square_digits(3212))
-    print(square_digits(2112))
-    print(square_digits(0))
-    print(square_digits(999))
-    print(square_digits(10001))
+    (square_digits(3212))
+    (square_digits(2112))
+    (square_digits(0))
+    (square_digits(999))
+    (square_digits(10001))
 

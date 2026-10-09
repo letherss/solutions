@@ -1,14 +1,8 @@
-def bytes_to_kilobytes(kilobytes):
-    bytes = kilobytes / 1024
-    return bytes
-
-
-def kilobytes_to_bytes(bytes):
-    kilobytes = bytes * 1024
-    return kilobytes
-
+def bytes_to_kilobytes(value):
+    return value / 1024
+def kilobytes_to_bytes(value):
+    return value * 1024
 
 if __name__ == "__main__":
-    print(bytes_to_kilobytes(2048))
-    print(kilobytes_to_bytes(2))
-
+    (bytes_to_kilobytes(2048))
+    (kilobytes_to_bytes(2))
