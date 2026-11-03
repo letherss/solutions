@@ -21,17 +21,15 @@ class DynamicArray:
     def append(self, item):
         if self._size == self._capacity:
             self._resize(self._capacity * 2)
-
         self._array[self._size] = item
         self._size += 1
 
     def pop(self):
         if self._size == 0:
             raise IndexError("pop from empty dynamic array")
-
         self._size -= 1
         item = self._array[self._size]
-        self._array[self._size] = None  # Очищаем ссылку для сборщика мусора
+        self._array[self._size] = None
         return item
 
     def __getitem__(self, index):
