@@ -1,26 +1,56 @@
-class  Account:
-    def __init__(self, number, owner, balance):
-        if balance < 0: raise ValueError("Счёт не может быть отрицательным")
-        self.number = number
-        self.owner = owner
-        self.balance = balance
+class Account:
+    def __init__(self, number: str, owner: str, balance: float = 0):
+        if balance < 0:
+            raise ValueError("Начальный остаток не может быть отрицательным")
+        
+        self._number = number
+        self._owner = owner
+        self._balance = balance
 
-    def deposit(self, amount):
-        self.balance += amount
-        return self.balance
-    def withdraw(self, amount):
-        if self.balance - amount < 0: raise ValueError("недостаточно средств")
-        self.balance -= amount
-        return self.balance
-    def __repr__(self, amount):
-        return f"Account('{self.number}', '{self.owner}', {self.balance})"
-acc = Account(number="1", owner="Иван", balance=1000)
+    @property
+    def number(self) -> str:
+        """Номер счёта (доступен только для чтения)."""
+        return self._number
+
+    @property
+    def owner(self) -> str:
+        """Владелец счёта (доступен только для чтения)."""
+        return self._owner
+
+    @property
+    def balance(self) -> float:
+        """Текущий остаток (доступен только для чтения)."""
+        return self._balance
+
+    def deposit(self, amount: float) -> None:
+        """Положить деньги на счёт."""
+        if amount <= 0:
+            raise ValueError("Сумма пополнения должна быть положительной")
+        self._balance += amount
+
+    def withdraw(self, amount: float) -> None:
+        """Снять деньги со счёта."""
+        if amount <= 0:
+            raise ValueError("Сумма снятия должна быть положительной")
+        if amount > self._balance:
+            raise ValueError("Недостаточно средств")
+        self._balance -= amount
+
+    def __repr__(self) -> str:
+        return f"Account({self._number!r}, {self._owner!r}, {self._balance})"
+
 
 if __name__ == "__main__":
-    (acc.deposit(500))
-    (acc.balance)
-    (acc.withdraw(200))
-    (acc.balance)
-    (acc.withdraw(5000))
-    (acc.balance)
-    (acc)
+    acc = Account("40817", "Иван", 1000)
+    acc.deposit(500)
+    print(acc.balance)
+    acc.withdraw(200)
+    print(acc.balance)
+    
+    try:
+        acc.withdraw(5000)
+    except ValueError as e:
+        print(f"ValueError: {e}")
+        
+    print(acc.balance)
+    print(acc)
