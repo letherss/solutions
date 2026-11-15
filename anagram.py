@@ -1,18 +1,16 @@
 def is_anagram(s1, s2):
     if len(s1) != len(s2):
         return False
-    freq = [0] * 26
-
-    for ch in s1:
-        freq[ord(ch) - ord('a')] += 1
-
-    for ch in s2:
-        freq[ord(ch) - ord('a')] -= 1
-
-    return all(count == 0 for count in freq)
+    s2_split = list(s2)
+    for c in s1:
+        if c not in s2_split:
+            return False
+        else:
+            s2_split.remove(c)
+    return True
 
 if __name__ == "__main__":
-    is_anagram("heart", "earth")
-    is_anagram("python", "typhon")
-    is_anagram("hello", "world")
-    is_anagram("ab", "abc")
+    print(is_anagram("heart", "earth"))
+    print(is_anagram("python", "typhon"))
+    print(is_anagram("hello", "world"))
+    print(is_anagram("ab", "abc"))
