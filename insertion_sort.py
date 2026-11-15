@@ -1,13 +1,19 @@
 def insertion_sort(arr):
-    res = arr
-    for i in range(len(res)):
-        h = i
-        while h > 0 and res[h - 1] > res[h]:
-            res[h - 1], res[h] = res[h], res[h - 1]
-            h -= 1
-    return res
+    sorted_arr = arr.copy()
+
+    for i in range(1, len(sorted_arr)):
+        current_value = sorted_arr[i]
+        position = i
+
+        while position > 0 and sorted_arr[position - 1] > current_value:
+            sorted_arr[position] = sorted_arr[position - 1]
+            position -= 1
+
+        sorted_arr[position] = current_value
+
+    return sorted_arr
 
 if __name__ == "__main__":
-    insertion_sort([4, 2, 7, 1, 3, 5])
-    insertion_sort([7, 3, 3, 4, 1])
-    insertion_sort([])
+    print(insertion_sort([1,2,4,5,7,8,9]))
+    print(insertion_sort([7, 3, 3, 4, 1]))
+    print(insertion_sort([]))
