@@ -1,71 +1,80 @@
 from abc import ABC, abstractmethod
+
+
 class Animal(ABC):
-    def __init__(self, name, weight):
+    def __init__(self, name: str, weight: float):
         self.name = name
         self.weight = weight
 
     @abstractmethod
-    def sound(self):
+    def sound(self) -> str:
+        """Возвращает звук, издаваемый животным."""
         pass
 
     @abstractmethod
-    def food_per_day(self):
+    def food_per_day(self) -> float:
+        """Возвращает массу корма (в кг), необходимую животному в день."""
         pass
 
-    def describe(self):
+    def describe(self) -> str:
+        """Возвращает описание животного в формате 'Имя: Звук'."""
         return f"{self.name}: {self.sound()}"
 
 
 class Lion(Animal):
-    def sound(self):
+    def sound(self) -> str:
         return "Р-р-р"
 
-    def food_per_day(self):
+    def food_per_day(self) -> float:
         return self.weight * 0.05
 
 
 class Parrot(Animal):
-    def sound(self):
+    def sound(self) -> str:
         return "Привет!"
 
-    def food_per_day(self):
-        return self.weight * 0.1
+    def food_per_day(self) -> float:
+        return self.weight * 0.10
 
 
 class Zoo:
     def __init__(self):
-        self.animals = []
+        self._animals = []
 
-    def add(self, animal):
+    def add(self, animal: Animal) -> None:
+        """Добавить животное в зоопарк."""
         if not isinstance(animal, Animal):
-            raise TypeError("Можно добавлять только животных")
-        self.animals.append(animal)
+            raise TypeError("В зоопарк можно добавлять только объекты типа Animal")
+        self._animals.append(animal)
 
-    def sounds(self):
-        return [animal.describe() for animal in self.animals]
+    def sounds(self) -> list[str]:
+        """Возвращает список описаний всех животных в порядке добавления."""
+        return [animal.describe() for animal in self._animals]
 
-    def total_food(self):
-        return sum(animal.food_per_day() for animal in self.animals)
+    def total_food(self) -> float:
+        """Возвращает общее количество корма для всех животных зоопарка в день."""
+        return sum(animal.food_per_day() for animal in self._animals)
 
-    def __len__(self):
-        return len(self.animals)
+    def __len__(self) -> int:
+        """Возвращает общее количество животных в зоопарке."""
+        return len(self._animals)
 
 
 if __name__ == "__main__":
     zoo = Zoo()
     zoo.add(Lion("Симба", 190))
     zoo.add(Parrot("Кеша", 0.5))
-
-    len(zoo)
-    zoo.sounds()
-    zoo.total_food()
-
+    
+    print(len(zoo))
+    print(zoo.sounds())
+    print(zoo.total_food())
+    
     try:
         Animal("Нечто", 10)
-    except TypeError:
-        pass
-
+    except TypeError as e:
+        print(f"TypeError при создании Animal: {e}")
+        
     try:
         zoo.add("слон")
-    except TypeError:
-        pass
+    except TypeError as e:
+        print(f"TypeError при добавлении строки: {e}")
