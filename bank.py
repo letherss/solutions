@@ -1,91 +1,101 @@
-
 class Account:
-    def __init__(self, number, owner, balance=0):
-        self.number = number
-        self.owner = owner
+    def __init__(self, number: str, owner: str, balance: float = 0):
+        if balance < 0:
+            raise ValueError("Начальный остаток не может быть отрицательным")
+        
+        self._number = number
+        self._owner = owner
         self._balance = balance
 
     @property
-    def balance(self):
+    def number(self) -> str:
+        """Номер счёта (только для чтения)."""
+        return self._number
+
+    @property
+    def owner(self) -> str:
+        """Владелец счёта (только для чтения)."""
+        return self._owner
+
+    @property
+    def balance(self) -> float:
+        """Текущий остаток (только для чтения)."""
         return self._balance
 
-    def deposit(self, amount):
+    def deposit(self, amount: float) -> None:
+        """Положить деньги на счёт."""
         if amount <= 0:
             raise ValueError("Сумма пополнения должна быть положительной")
         self._balance += amount
 
-    def withdraw(self, amount):
+    def withdraw(self, amount: float) -> None:
+        """Снять деньги со счёта."""
         if amount <= 0:
             raise ValueError("Сумма снятия должна быть положительной")
         if amount > self._balance:
             raise ValueError("Недостаточно средств")
         self._balance -= amount
 
-    def __repr__(self):
-        return (
-            f"Account({self.number!r}, {self.owner!r}, "
-            f"{self.balance!r})"
-        )
+    def __repr__(self) -> str:
+        return f"Account({self._number!r}, {self._owner!r}, {self._balance})"
 
 
 class SavingsAccount(Account):
-    def __init__(self, number, owner, balance=0, rate=0.05):
+    def __init__(self, number: str, owner: str, balance: float = 0, rate: float = 0.05):
         super().__init__(number, owner, balance)
         self.rate = rate
 
-    def add_interest(self):
-        self._balance += self.balance * self.rate
+    def add_interest(self) -> None:
+        """Начислить проценты на остаток."""
+        interest = self._balance * self.rate
+        self._balance += interest
 
-    def __repr__(self):
-        return (
-            f"SavingsAccount({self.number!r}, {self.owner!r}, "
-            f"{self.balance!r}, {self.rate!r})"
-        )
+    def __repr__(self) -> str:
+        return f"SavingsAccount({self.number!r}, {self.owner!r}, {self.balance}, {self.rate})"
 
 
 class CheckingAccount(Account):
-    def __init__(self, number, owner, balance=0, overdraft=0):
+    def __init__(self, number: str, owner: str, balance: float = 0, overdraft: float = 0):
         super().__init__(number, owner, balance)
+        if overdraft < 0:
+            raise ValueError("Лимит овердрафта не может быть отрицательным")
         self.overdraft = overdraft
 
-    def withdraw(self, amount):
+    def withdraw(self, amount: float) -> None:
+        """Снять деньги со счёта с возможностью уходить в минус до лимита овердрафта."""
         if amount <= 0:
             raise ValueError("Сумма снятия должна быть положительной")
-        if self.balance - amount < -self.overdraft:
+        if self._balance - amount < -self.overdraft:
             raise ValueError("Превышен лимит овердрафта")
         self._balance -= amount
 
-    def __repr__(self):
-        return (
-            f"CheckingAccount({self.number!r}, {self.owner!r}, "
-            f"{self.balance!r}, {self.overdraft!r})"
-        )
+    def __repr__(self) -> str:
+        return f"CheckingAccount({self.number!r}, {self.owner!r}, {self.balance}, {self.overdraft})"
 
 
 if __name__ == "__main__":
     s = SavingsAccount("1", "Иван", 1000, rate=0.1)
     s.add_interest()
-    s.balance
-
+    print(s.balance)
     try:
         s.withdraw(2000)
-    except ValueError:
-        pass
-
+    except ValueError as e:
+        print(f"ValueError: {e}")
+        
     try:
         s.balance = 0
-    except AttributeError:
-        pass
+    except AttributeError as e:
+        print(f"AttributeError: {e}")
 
     c = CheckingAccount("2", "Мария", 100, overdraft=500)
     c.withdraw(400)
-    c.balance
-
+    print(c.balance)
     try:
-        c.withdraw(300)
-    except ValueError:
-        pass
-
+        c.withdraw(300)т
+    except ValueError as e:
+        print(f"ValueError: {e}")
+        
     c.deposit(1000)
-    c.balance
+    print(c.balance)
+    print(isinstance(c, Account))
     isinstance(c, Account)
