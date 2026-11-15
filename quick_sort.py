@@ -1,19 +1,27 @@
+import random
+
 def quick_sort(arr):
     if len(arr) <= 1:
         return arr
-    n = arr[len(arr) // 2]
+    if len(arr) < 2:
+        return sorted(arr)
+    supporting_element = random.randint(0, len(arr) - 1)
+    support = arr[supporting_element]
 
-    lt = []
-    md = []
-    rt = []
-
-    for x in arr:
-        if x < n: lt.append(x)
-        if x == n: md.append(x)
-        if x > n: rt.append(x)
-    return quick_sort(lt) + md + quick_sort(rt)
+    less = []
+    equal = []
+    greater = []
+    
+    for element in arr:
+        if element < support:
+            less.append(element)
+        elif element > support:
+            greater.append(element)
+        else:
+            equal.append(element)
+    return quick_sort(less) + equal + quick_sort(greater)
 
 if __name__ == "__main__":
-    quick_sort([4, 2, 7, 1, 3, 5])
-    quick_sort([7, 3, 3, 4, 1])
-    quick_sort([])
+    print(quick_sort([4, 2, 7, 1, 3, 5]))
+    print(quick_sort([7, 3, 3, 4, 1]))
+    print(quick_sort([]))
